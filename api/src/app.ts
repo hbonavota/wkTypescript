@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookieparser');
 
 const app: Application = express();
+
 app.use(express.urlencoded({extended: true, limit: '50mb'})); //middleware
 app.use(express.json({limit: '50mb'}));
 app.use(cookieParser());
