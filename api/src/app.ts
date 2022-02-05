@@ -1,3 +1,4 @@
+require('dotenv').config({ path: '/.env' })
 import express, {Application, Request, Response, NextFunction} from 'express';
 import config from './lib/config';
 import routes from './routes/index';
