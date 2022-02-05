@@ -1,14 +1,17 @@
+require('dotenv').config({ path: '/.env' })
 import express, {Application, Request, Response, NextFunction} from 'express';
 import config from './lib/config';
+import routes from './routes/index';
+
 const cors = require('cors')
 const morgan = require('morgan');
-const cookieParser = require('cookieparser');
+const cookieParser = require('cookie-parser');
 
-const app: Application = express();
+const app : Application = express();
 
 app.use(express.urlencoded({extended: true, limit: '50mb'})); //middleware
 app.use(express.json({limit: '50mb'}));
-/* app.use(cookieParser()); */
+app.use(cookieParser());
 app.use(morgan('dev'));
 
 app.use(
@@ -25,7 +28,6 @@ interface error {
 	message: string;
 }
 
-
 app.use((err: error, req: Request, res: Response, next: NextFunction) => {
 	// eslint-disable-line no-unused-vars
 	const status = err.status || 500;
@@ -34,9 +36,7 @@ app.use((err: error, req: Request, res: Response, next: NextFunction) => {
 	res.status(status).send(message);
 });
 
-app.get('/',(req: Request, res: Response, next: NextFunction)=>{
-	res.send('hello world =)')	
-})
+app.get('/api', routes);
 
 
 
