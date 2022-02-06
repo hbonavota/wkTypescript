@@ -1,7 +1,12 @@
-import app from './src/app';
+import app from "./src/app";
+require("./src/dataBase.ts");
 
-const port= 3001;
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
-app.listen(3001, function () {
-	console.log(`App is listening on port ${port}!`);
+const port = process.env.PORT || 3001;
+
+app.listen(port, () => {
+  console.log(`App is listening on port ${port}!`);
 });
