@@ -10,16 +10,9 @@ interface error {
 const uri = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.du2l6.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
 const db = mongoose.connection;
 
-mongoose.connect(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true
-})
-
-db.once('open', (err: error)=> {
-        console.log('Database is connected successfully');
-})
-
-db.on('error', (err: error) => {
-        console.log(err);
-    })
+mongoose.connect(uri, 
+        async ( err : error ) =>{
+                if(err) throw Error;
+                console.log("DB is connected successfully")
+        } 
+)
